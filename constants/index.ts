@@ -1,28 +1,28 @@
 export const navItems = [
   {
-    name: "Dashboard",
+    name: "Home",
     icon: "/assets/icons/dashboard.svg",
     url: "/",
   },
   {
-    name: "Documents",
+    name: "Customize",
     icon: "/assets/icons/documents.svg",
-    url: "/documents",
+    url: "/customize",
   },
   {
-    name: "Images",
+    name: "Shop",
     icon: "/assets/icons/images.svg",
-    url: "/images",
+    url: "/shop",
   },
   {
-    name: "Media",
+    name: "Profile",
     icon: "/assets/icons/video.svg",
-    url: "/media",
+    url: "/profile",
   },
   {
-    name: "Others",
+    name: "Admin",
     icon: "/assets/icons/others.svg",
-    url: "/others",
+    url: "/admin",
   },
 ];
 
