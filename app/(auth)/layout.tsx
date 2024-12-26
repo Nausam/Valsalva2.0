@@ -1,10 +1,10 @@
-import Image from "next/image";
 import React from "react";
+import Image from "next/image";
 
-const layout = ({ children }: { children: React.ReactNode }) => {
+const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="flex min-h-screen">
-      <section className="hidden w-1/2 items-center justify-center bg-muddy_green p-10 lg:flex xl:w-2/5">
+      <section className="hidden w-1/2 items-center justify-center bg-brand p-10 lg:flex xl:w-2/5">
         <div className="flex max-h-[800px] max-w-[430px] flex-col justify-center space-y-12">
           <Image
             src="/assets/images/logo_white.png"
@@ -15,8 +15,8 @@ const layout = ({ children }: { children: React.ReactNode }) => {
           />
 
           <div className="space-y-5 text-white">
-            <h1 className="text-6xl font-black">VALSALVA</h1>
-            <p className="font-medium">
+            <h1 className="text-5xl font-extrabold">VALSALVA</h1>
+            <p className="font-normal text-lg">
               Dive into a World of Excellence: Unleashing Precision, Power, and
               Unparalleled Performance in Every Fin!
             </p>
@@ -48,4 +48,4 @@ const layout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default layout;
+export default Layout;
