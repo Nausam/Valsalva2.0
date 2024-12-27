@@ -26,8 +26,9 @@ export default function Navbar({ fullName, avatar, email }: Props) {
             <Image
               src="/assets/images/logo.png"
               alt="User Avatar"
-              width={23}
+              width={20}
               height={30}
+              style={{ width: "auto", height: "100%" }}
             />
             <span className="text-3xl font-extrabold text-black tracking-wide">
               VALSALVA

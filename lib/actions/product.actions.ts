@@ -2,7 +2,7 @@
 
 import { createAdminClient } from "@/lib/appwrite";
 import { appwriteConfig } from "@/lib/appwrite/config";
-import { ID, Permission, Role } from "node-appwrite";
+import { ID, Permission, Query, Role } from "node-appwrite";
 import { constructFileUrl, parseStringify } from "@/lib/utils";
 import { InputFile } from "node-appwrite/file";
 import { UpdateProductParams } from "@/types";
@@ -154,5 +154,47 @@ export const updateProduct = async ({
   } catch (error) {
     console.error("Failed to update product:", error);
     throw new Error("Failed to update product");
+  }
+};
+
+// GET RANDOM FINS
+export const getRandomFins = async () => {
+  try {
+    const { databases } = await createAdminClient();
+
+    // Fetch all fins to calculate the total number of documents
+    const { total } = await databases.listDocuments(
+      appwriteConfig.databaseId,
+      appwriteConfig.finsCollectionId,
+      [Query.limit(1)] // Only fetch metadata to get the total count
+    );
+
+    if (total === 0) {
+      throw new Error("No fins available.");
+    }
+
+    // Generate up to 6 unique random offsets
+    const randomOffsets = new Set<number>();
+    while (randomOffsets.size < Math.min(3, total)) {
+      const randomOffset = Math.floor(Math.random() * total);
+      randomOffsets.add(randomOffset);
+    }
+
+    // Fetch fins at the random offsets
+    const randomFinsPromises = Array.from(randomOffsets).map((offset) =>
+      databases.listDocuments(
+        appwriteConfig.databaseId,
+        appwriteConfig.finsCollectionId,
+        [Query.offset(offset), Query.limit(1)]
+      )
+    );
+
+    const randomFinsResults = await Promise.all(randomFinsPromises);
+    const randomFins = randomFinsResults.map((result) => result.documents[0]);
+
+    return parseStringify(randomFins);
+  } catch (error) {
+    console.error("Failed to fetch random fins:", error);
+    throw new Error("Failed to fetch random fins");
   }
 };

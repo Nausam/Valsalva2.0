@@ -12,8 +12,6 @@ const ProductDetailsPage = () => {
   const [product, setProduct] = useState<Fin>();
   const [loading, setLoading] = useState(true);
 
-  console.log("productId", productId);
-
   useEffect(() => {
     const fetchProduct = async () => {
       if (!productId || typeof productId !== "string") return;
@@ -52,8 +50,8 @@ const ProductDetailsPage = () => {
             alt="hero image"
             width={1000}
             height={1000}
-            style={{ objectFit: "cover" }}
             className="rounded-sm"
+            style={{ width: "auto", height: "100%" }}
           />
 
           <div className="flex w-full flex-col gap-8 p-5 md:p-10">

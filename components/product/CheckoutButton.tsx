@@ -69,7 +69,7 @@ const CheckoutButton = ({ product }: { product: Fin }) => {
 
   return (
     <div>
-      <div className="flex gap-10 flex-wrap">
+      <div className="flex gap-10 flex-wrap mb-5">
         <CustomSelect
           title="Foot Pocket Color"
           selectItems={["Black", "White"]}
@@ -126,11 +126,12 @@ const CheckoutButton = ({ product }: { product: Fin }) => {
               <CarouselItem key={cut.id} className="basis-1/3">
                 <Image
                   src={cut.imageUrl}
-                  height={100}
-                  width={100}
+                  height={70}
+                  width={70}
                   alt="blade cut image"
                   className="rounded-sm dark:invert-0 invert"
                   loading="lazy"
+                  style={{ width: "auto", height: "100%" }}
                 />
               </CarouselItem>
             ))}

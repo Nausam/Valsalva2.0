@@ -6,12 +6,12 @@ import Link from "next/link";
 import React from "react";
 
 interface ProductCardProps {
-  id: string;
-  name: string;
+  id?: string;
+  name?: string;
   price: number;
   imageUrl: string;
-  description: string;
-  category: string;
+  description?: string;
+  category?: string;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -22,8 +22,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
   description,
   category,
 }) => {
-  console.log("Rendering image URL:", imageUrl);
-
   return (
     <div className="relative flex w-full flex-col">
       <div className="flex flex-col p-5 gap-5">

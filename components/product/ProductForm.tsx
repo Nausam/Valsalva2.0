@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import React, { useState } from "react";
@@ -46,21 +45,17 @@ type ProductFormProps = {
 
 const ProductForm = ({ type, product, productId }: ProductFormProps) => {
   const [file, setFile] = useState<File | null>(null);
-  const [imageUrl, setImageUrl] = useState<string | null>(
-    product?.imageUrl || null
-  );
+
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const router = useRouter();
+  console.log("product", product);
 
   const initialValues =
     product && type === "Update"
       ? {
           ...product,
-          categoryId:
-            typeof product.categoryId === "object"
-              ? product.categoryId._id
-              : product.categoryId, // Ensure categoryId is a string
+          categoryId: product.categoryId?.$id || "",
         }
       : productDefaultValues;
 
@@ -72,13 +67,16 @@ const ProductForm = ({ type, product, productId }: ProductFormProps) => {
   const handleSubmit = async (values: z.infer<typeof productFormSchema>) => {
     setIsSubmitting(true);
 
-    // Step 1: Upload the file
+    try {
+      let imageUrl = product?.imageUrl || ""; // Use existing image URL if no new file is uploaded
 
-    if (!file) throw new Error("Please upload an image");
-    const imageUrl = await uploadProductImage(file);
-    if (type === "Create") {
-      try {
-        // Step 2: Create the product
+      if (file) {
+        // Upload the file only if a new file is selected
+        imageUrl = await uploadProductImage(file);
+      }
+
+      if (type === "Create") {
+        // Creating a new product
         const newProduct = await createFin({
           title: values.title,
           description: values.description,
@@ -88,46 +86,45 @@ const ProductForm = ({ type, product, productId }: ProductFormProps) => {
           footpocketColor: values.footpocketColor,
           categoryId: values.categoryId,
         });
+
         if (newProduct) {
           form.reset();
-          router.push(`/product/${newProduct.id}`);
+          router.push(`/shop/${newProduct.id}`);
+          alert("Product created successfully!");
+        }
+      } else if (type === "Update") {
+        if (!productId) {
+          router.back();
+          return;
         }
 
-        alert("Product created successfully!");
-      } catch (error) {
-        console.error("Failed to create product:", error);
-        alert("Failed to create product. Please try again.");
-      } finally {
-        setIsSubmitting(false);
-      }
-    }
-
-    if (type === "Update") {
-      if (!productId) {
-        router.back();
-        return;
-      }
-
-      try {
+        // Updating an existing product
         const updatedProduct = await updateProduct({
           ...values,
-          imageUrl: imageUrl,
+          imageUrl, // Include the imageUrl (updated or original)
           id: productId,
-          path: `/product/${productId}}`,
         });
+
         if (updatedProduct) {
           form.reset();
-          router.push(`/product/${updatedProduct._id}`);
+          router.push(`/shop/${updatedProduct.id}`);
+          toast({
+            title: `${values.title} updated successfully`,
+          });
         }
-        toast({
-          title: `${values.title} updated successfully`,
-        });
-      } catch (error) {
-        toast({
-          title: `Error updating ${values.title}`,
-          variant: "destructive",
-        });
       }
+    } catch (error) {
+      console.error(
+        `Failed to ${type === "Create" ? "create" : "update"} product:`,
+        error
+      );
+
+      toast({
+        title: `Failed to ${type === "Create" ? "create" : "update"} product`,
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -164,8 +161,8 @@ const ProductForm = ({ type, product, productId }: ProductFormProps) => {
               <FormItem className="w-full dark:bg-[#191919] rounded-full text-black">
                 <FormControl>
                   <Dropdown
-                    onChangeHandler={(value) => field.onChange(value)}
                     value={field.value}
+                    onChangeHandler={(value) => field.onChange(value)}
                   />
                 </FormControl>
                 <FormMessage />

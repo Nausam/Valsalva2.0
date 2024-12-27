@@ -7,7 +7,7 @@ export type Fin = {
   isAvailable: boolean;
   footpocketColor: string;
   categoryId: {
-    _id: string;
+    $id: string;
     name: string;
   };
   //   createdAt: string;
