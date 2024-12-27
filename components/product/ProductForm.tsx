@@ -21,7 +21,11 @@ import {
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { createFin, uploadProductImage } from "@/lib/actions/product.actions";
+import {
+  createFin,
+  updateProduct,
+  uploadProductImage,
+} from "@/lib/actions/product.actions";
 import Image from "next/image";
 import { productFormSchema } from "@/lib/validations";
 import { Fin } from "@/types";
@@ -32,6 +36,7 @@ import * as z from "zod";
 import Dropdown from "./Dropdown";
 import { FileUploader } from "./FileUploader";
 import { useRouter } from "next/navigation";
+import { toast } from "@/hooks/use-toast";
 
 type ProductFormProps = {
   type: "Create" | "Update";
@@ -41,13 +46,23 @@ type ProductFormProps = {
 
 const ProductForm = ({ type, product, productId }: ProductFormProps) => {
   const [file, setFile] = useState<File | null>(null);
-  const [preview, setPreview] = useState<string | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(
+    product?.imageUrl || null
+  );
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const router = useRouter();
 
   const initialValues =
-    product && type === "Update" ? product : productDefaultValues;
+    product && type === "Update"
+      ? {
+          ...product,
+          categoryId:
+            typeof product.categoryId === "object"
+              ? product.categoryId._id
+              : product.categoryId, // Ensure categoryId is a string
+        }
+      : productDefaultValues;
 
   const form = useForm<z.infer<typeof productFormSchema>>({
     resolver: zodResolver(productFormSchema),
@@ -57,12 +72,12 @@ const ProductForm = ({ type, product, productId }: ProductFormProps) => {
   const handleSubmit = async (values: z.infer<typeof productFormSchema>) => {
     setIsSubmitting(true);
 
+    // Step 1: Upload the file
+
+    if (!file) throw new Error("Please upload an image");
+    const imageUrl = await uploadProductImage(file);
     if (type === "Create") {
       try {
-        // Step 1: Upload the file
-        if (!file) throw new Error("Please upload an image");
-        const imageUrl = await uploadProductImage(file);
-
         // Step 2: Create the product
         const newProduct = await createFin({
           title: values.title,
@@ -84,6 +99,34 @@ const ProductForm = ({ type, product, productId }: ProductFormProps) => {
         alert("Failed to create product. Please try again.");
       } finally {
         setIsSubmitting(false);
+      }
+    }
+
+    if (type === "Update") {
+      if (!productId) {
+        router.back();
+        return;
+      }
+
+      try {
+        const updatedProduct = await updateProduct({
+          ...values,
+          imageUrl: imageUrl,
+          id: productId,
+          path: `/product/${productId}}`,
+        });
+        if (updatedProduct) {
+          form.reset();
+          router.push(`/product/${updatedProduct._id}`);
+        }
+        toast({
+          title: `${values.title} updated successfully`,
+        });
+      } catch (error) {
+        toast({
+          title: `Error updating ${values.title}`,
+          variant: "destructive",
+        });
       }
     }
   };
