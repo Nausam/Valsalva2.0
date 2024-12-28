@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollTrigger } from "gsap/all";
 import AnimatedTitle from "./AnimatedTitle";
 
 const About: React.FC = () => {
@@ -14,19 +14,22 @@ const About: React.FC = () => {
       const clipAnimation = gsap.timeline({
         scrollTrigger: {
           trigger: "#clip",
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
+          start: "center center",
+          end: "+=800 center",
+          scrub: 0.5,
           pin: true,
-          pinSpacing: false,
+          pinSpacing: true,
         },
       });
 
-      clipAnimation.fromTo(
-        ".mask-clip-path",
-        { width: "50vw", height: "50vh", borderRadius: "20px" },
-        { width: "100vw", height: "100vh", borderRadius: "0px" }
-      );
+      // Refresh ScrollTrigger and add overflow-x-hidden dynamically
+      ScrollTrigger.refresh();
+
+      clipAnimation.to(".mask-clip-path", {
+        width: "100vw",
+        height: "100vh",
+        borderRadius: 0,
+      });
     }
 
     // Clean up ScrollTrigger instances on unmount
@@ -36,7 +39,7 @@ const About: React.FC = () => {
   }, []);
 
   return (
-    <div id="about" className="relative min-h-screen w-screen bg-gray-50">
+    <div id="about" className="relative min-h-screen w-screen">
       {/* Static Content */}
       <div className="relative z-10 mb-8 mt-36 flex flex-col items-center gap-5">
         <p className="font-general text-sm uppercase md:text-[10px]">

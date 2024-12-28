@@ -27,7 +27,7 @@ const MobileNavigation = ({ fullName, avatar, email }: Props) => {
   const pathname = usePathname();
 
   return (
-    <header className="mobile-header">
+    <header className="mobile-header overflow-x-hidden z-50">
       {/* <Image
         src="/assets/icons/logo-full-brand.svg"
         alt="logo"
@@ -48,13 +48,13 @@ const MobileNavigation = ({ fullName, avatar, email }: Props) => {
         <SheetContent className="shad-sheet h-screen px-3">
           <SheetTitle>
             <div className="header-user">
-              <Image
+              {/* <Image
                 src={avatar}
                 alt="avatar"
                 width={44}
                 height={44}
                 className="header-user-avatar"
-              />
+              /> */}
               <div className="sm:hidden lg:block">
                 <p className="subtitle-2 capitalize">{fullName}</p>
                 <p className="caption">{email}</p>
@@ -73,7 +73,7 @@ const MobileNavigation = ({ fullName, avatar, email }: Props) => {
                       pathname === url && "shad-active"
                     )}
                   >
-                    <Image
+                    {/* <Image
                       src={icon}
                       alt={name}
                       width={24}
@@ -82,9 +82,10 @@ const MobileNavigation = ({ fullName, avatar, email }: Props) => {
                         "nav-icon",
                         pathname === url && "nav-icon-active"
                       )}
-                    />
+                    /> */}
                     <p>{name}</p>
                   </li>
+                  <Separator className="mb-4 bg-light-200/20" />
                 </Link>
               ))}
             </ul>
@@ -99,12 +100,12 @@ const MobileNavigation = ({ fullName, avatar, email }: Props) => {
               className="mobile-sign-out-button"
               onClick={async () => await signOutUser()}
             >
-              <Image
+              {/* <Image
                 src="/assets/icons/logout.svg"
                 alt="logo"
                 width={24}
                 height={24}
-              />
+              /> */}
               <p>Logout</p>
             </Button>
           </div>
