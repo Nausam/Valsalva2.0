@@ -16,7 +16,7 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import React, { useState } from "react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { Button } from "@/components/ui/button";
 import { verifySecret, sendEmailOTP } from "@/lib/actions/user.actions";
 import { useRouter } from "next/navigation";
@@ -73,7 +73,7 @@ const OtpModal = ({
           </AlertDialogTitle>
           <AlertDialogDescription className="subtitle-2 text-center text-light-100">
             We&apos;ve sent a code to{" "}
-            <span className="pl-1 text-brand">{email}</span>
+            <span className="pl-1 font-bold text-slate-600">{email}</span>
           </AlertDialogDescription>
         </AlertDialogHeader>
 
@@ -112,7 +112,7 @@ const OtpModal = ({
               <Button
                 type="button"
                 variant="link"
-                className="pl-1 text-brand"
+                className="pl-1 font-bold text-slate-600"
                 onClick={handleResendOtp}
               >
                 Click to resend

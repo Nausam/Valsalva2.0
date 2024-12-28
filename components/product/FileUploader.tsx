@@ -2,7 +2,9 @@
 
 import { Dispatch, SetStateAction, useCallback } from "react";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
+import Image from "next/legacy/image";
+import { convertFileToUrl } from "@/lib/utils";
+import state from "@/store";
 
 type FileUploaderProps = {
   onFieldChange: (url: string) => void;
@@ -15,21 +17,18 @@ export function FileUploader({
   onFieldChange,
   setFile,
 }: FileUploaderProps) {
-  const onDrop = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const files = event.target.files;
+  const onDrop = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
 
-      if (files && files.length > 0) {
-        const selectedFile = files[0];
-        setFile(selectedFile); // Update the state with the selected file
+    if (files && files.length > 0) {
+      const selectedFile = files[0];
+      setFile(selectedFile); // Update the state with the selected file
 
-        // Create a preview URL for the file
-        const fileUrl = URL.createObjectURL(selectedFile);
-        onFieldChange(fileUrl); // Update the form with the image URL
-      }
-    },
-    [onFieldChange, setFile]
-  );
+      // Create a preview URL for the file
+      const fileUrl = URL.createObjectURL(selectedFile);
+      onFieldChange(fileUrl); // Update the form with the image URL
+    }
+  }, []);
 
   const onDragOver = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();

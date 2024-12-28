@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import React, { useState } from "react";
@@ -21,8 +20,12 @@ import {
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { createFin, uploadProductImage } from "@/lib/actions/product.actions";
-import Image from "next/image";
+import {
+  createFin,
+  updateProduct,
+  uploadProductImage,
+} from "@/lib/actions/product.actions";
+import Image from "next/legacy/image";
 import { productFormSchema } from "@/lib/validations";
 import { Fin } from "@/types";
 import { productDefaultValues } from "@/constants";
@@ -32,6 +35,7 @@ import * as z from "zod";
 import Dropdown from "./Dropdown";
 import { FileUploader } from "./FileUploader";
 import { useRouter } from "next/navigation";
+import { toast } from "@/hooks/use-toast";
 
 type ProductFormProps = {
   type: "Create" | "Update";
@@ -41,13 +45,19 @@ type ProductFormProps = {
 
 const ProductForm = ({ type, product, productId }: ProductFormProps) => {
   const [file, setFile] = useState<File | null>(null);
-  const [preview, setPreview] = useState<string | null>(null);
+
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const router = useRouter();
+  console.log("product", product);
 
   const initialValues =
-    product && type === "Update" ? product : productDefaultValues;
+    product && type === "Update"
+      ? {
+          ...product,
+          categoryId: product.categoryId?.$id || "",
+        }
+      : productDefaultValues;
 
   const form = useForm<z.infer<typeof productFormSchema>>({
     resolver: zodResolver(productFormSchema),
@@ -57,13 +67,16 @@ const ProductForm = ({ type, product, productId }: ProductFormProps) => {
   const handleSubmit = async (values: z.infer<typeof productFormSchema>) => {
     setIsSubmitting(true);
 
-    if (type === "Create") {
-      try {
-        // Step 1: Upload the file
-        if (!file) throw new Error("Please upload an image");
-        const imageUrl = await uploadProductImage(file);
+    try {
+      let imageUrl = product?.imageUrl || ""; // Use existing image URL if no new file is uploaded
 
-        // Step 2: Create the product
+      if (file) {
+        // Upload the file only if a new file is selected
+        imageUrl = await uploadProductImage(file);
+      }
+
+      if (type === "Create") {
+        // Creating a new product
         const newProduct = await createFin({
           title: values.title,
           description: values.description,
@@ -73,18 +86,45 @@ const ProductForm = ({ type, product, productId }: ProductFormProps) => {
           footpocketColor: values.footpocketColor,
           categoryId: values.categoryId,
         });
+
         if (newProduct) {
           form.reset();
-          router.push(`/product/${newProduct.id}`);
+          router.push(`/shop/${newProduct.id}`);
+          alert("Product created successfully!");
+        }
+      } else if (type === "Update") {
+        if (!productId) {
+          router.back();
+          return;
         }
 
-        alert("Product created successfully!");
-      } catch (error) {
-        console.error("Failed to create product:", error);
-        alert("Failed to create product. Please try again.");
-      } finally {
-        setIsSubmitting(false);
+        // Updating an existing product
+        const updatedProduct = await updateProduct({
+          ...values,
+          imageUrl, // Include the imageUrl (updated or original)
+          id: productId,
+        });
+
+        if (updatedProduct) {
+          form.reset();
+          router.push(`/shop/${updatedProduct.id}`);
+          toast({
+            title: `${values.title} updated successfully`,
+          });
+        }
       }
+    } catch (error) {
+      console.error(
+        `Failed to ${type === "Create" ? "create" : "update"} product:`,
+        error
+      );
+
+      toast({
+        title: `Failed to ${type === "Create" ? "create" : "update"} product`,
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -121,8 +161,8 @@ const ProductForm = ({ type, product, productId }: ProductFormProps) => {
               <FormItem className="w-full dark:bg-[#191919] rounded-full text-black">
                 <FormControl>
                   <Dropdown
-                    onChangeHandler={(value) => field.onChange(value)}
                     value={field.value}
+                    onChangeHandler={(value) => field.onChange(value)}
                   />
                 </FormControl>
                 <FormMessage />

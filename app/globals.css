@@ -90,6 +90,17 @@
   }
 }
 
+* {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
 @layer utilities {
   /* ===== TYPOGRAPHY */
   .h1 {
@@ -134,7 +145,7 @@
     @apply mx-auto max-w-7xl px-5;
   }
   .primary-btn {
-    @apply bg-brand hover:bg-brand-100 transition-all rounded-full button !important;
+    @apply bg-slate-800 hover:bg-slate-700 transition-all rounded-full button !important;
   }
   .flex-center {
     @apply flex items-center justify-center;
@@ -161,13 +172,13 @@
     @apply space-y-4 max-w-[95%] sm:w-fit rounded-xl md:rounded-[30px] px-4 md:px-8 py-10 bg-white outline-none !important;
   }
   .shad-submit-btn {
-    @apply bg-brand button hover:bg-brand-100 transition-all rounded-full !important;
+    @apply bg-slate-800 button hover:bg-slate-700 transition-all rounded-full !important;
   }
   .shad-otp {
     @apply w-full flex gap-1 sm:gap-2 justify-between !important;
   }
   .shad-otp-slot {
-    @apply text-[40px] font-medium rounded-xl ring-brand shadow-drop-1 text-brand-100 justify-center flex border-2 border-light-300 size-12 md:size-16 gap-5 !important;
+    @apply text-[40px] font-medium rounded-xl ring-slate-500 shadow-drop-1 text-slate-500 justify-center flex border-2 border-light-300 size-12 md:size-16 gap-5 !important;
   }
 
   .shad-sheet {
@@ -449,6 +460,19 @@
   }
   .thumbnail-image {
     @apply size-full object-cover object-center !important;
+  }
+
+  /* ===== ABOUT PAGE ANIMATIONS */
+
+  .animated-title {
+    @apply flex flex-col gap-1 text-7xl uppercase leading-[.8] text-white sm:px-32 md:text-[6rem];
+  }
+
+  .animated-word {
+    @apply font-black opacity-0;
+    transform: translate3d(10px, 51px, -60px) rotateY(60deg) rotateX(-40deg);
+    transform-origin: 50% 50% -150px !important;
+    will-change: opacity, transform;
   }
 }
 

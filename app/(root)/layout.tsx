@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import { Toaster } from "@/components/ui/toaster";
 import { getCurrentUser } from "@/lib/actions/user.actions";
 
 import React from "react";
@@ -9,7 +10,9 @@ const Layout = async ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="flex h-screen flex-col">
       <Navbar {...currentUser} />
-      <main className="flex-1">{children}</main>
+      <main className="flex-1">
+        {children} <Toaster />
+      </main>
     </div>
   );
 };

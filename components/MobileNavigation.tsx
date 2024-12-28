@@ -6,7 +6,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import React, { useState } from "react";
 import { usePathname } from "next/navigation";
 import { Separator } from "@radix-ui/react-separator";

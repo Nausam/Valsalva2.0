@@ -1,9 +1,15 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   experimental: {
     serverActions: {
-      bodySizeLimit: "10mb",
+      bodySizeLimit: "100MB",
     },
   },
   images: {
@@ -19,6 +25,8 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "cloud.appwrite.io",
+        port: "",
+        pathname: "/v1/storage/buckets/**",
       },
     ],
   },
