@@ -8,7 +8,7 @@ const AllProductsPage = async () => {
   const products = await getAllProducts();
 
   return (
-    <div className="container mt-20 p-5">
+    <div className="container mt-20 p-5 overflow-x-hidden">
       <h1 className="text-2xl font-bold mb-6">All Products</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {products.map((product: Models.Document) => {

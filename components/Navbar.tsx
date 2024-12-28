@@ -19,9 +19,8 @@ export default function Navbar({ fullName, avatar, email }: Props) {
 
   return (
     <nav className="bg-white/40 shadow-lg fixed w-full z-50 backdrop-blur-md">
-      <div className="container mx-auto px-4 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          {/* Brand Name */}
+      <div className="container mx-auto px-4 lg:px-8 max-w-full">
+        <div className="flex justify-between items-center h-16 ">
           <div className="flex items-center gap-2">
             <Image
               src="/assets/images/logo.png"
@@ -34,7 +33,6 @@ export default function Navbar({ fullName, avatar, email }: Props) {
             </span>
           </div>
 
-          {/* Desktop Menu */}
           <div className="hidden md:flex space-x-8 items-center">
             {navItems.map((item) => (
               <Link
@@ -61,7 +59,6 @@ export default function Navbar({ fullName, avatar, email }: Props) {
                 </button>
                 {isDropdownOpen && (
                   <div className="absolute right-0 mt-2 w-56 bg-white border border-gray-300 rounded-lg shadow-lg">
-                    {/* User Info */}
                     <div className="flex items-center space-x-3 px-4 py-4 border-b border-gray-200">
                       <Image
                         src={avatar}
@@ -80,7 +77,6 @@ export default function Navbar({ fullName, avatar, email }: Props) {
                       </div>
                     </div>
 
-                    {/* Logout Button */}
                     <button
                       type="button"
                       onClick={async () => await signOutUser()}

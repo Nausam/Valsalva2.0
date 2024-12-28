@@ -47,9 +47,9 @@ const HomePage: FC = () => {
   }, [heroImages.length]);
 
   return (
-    <div className="text-gray-800">
+    <div className="text-gray-800 overflow-x-hidden">
       {/* Hero Section */}
-      <section className="relative w-full h-screen overflow-hidden">
+      <section className="relative w-full h-screen">
         <div className="absolute inset-0">
           <Image
             src={heroImages[currentImageIndex]}
@@ -78,68 +78,6 @@ const HomePage: FC = () => {
 
       {/* About Section */}
       <About />
-      {/* <InView
-        variants={{
-          hidden: {
-            opacity: 0,
-            y: 30,
-            scale: 0.95,
-            filter: "blur(4px)",
-          },
-          visible: {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            filter: "blur(0px)",
-          },
-        }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
-        viewOptions={{ margin: "0px 0px -350px 0px" }}
-      >
-        <section className="flex items-center justify-center py-16 px-6 md:px-12 lg:px-20">
-          <div className="flex gap-10">
-            <div className="flex flex-col max-w-3xl">
-              <div className="flex flex-col">
-                <h2 className="text-3xl md:text-5xl font-semibold mb-6">
-                  About Us
-                </h2>
-                <p className="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto">
-                  We specialize in premium snorkeling equipment, designed to
-                  elevate your underwater experience. With a focus on innovation
-                  and quality, our products help you explore the ocean with ease
-                  and style.
-                </p>
-              </div>
-
-              <div className="flex flex-col max-w-3xl mt-5">
-                <h2 className="text-3xl md:text-5xl font-semibold mb-6">
-                  Mission
-                </h2>
-                <p className="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto">
-                  We specialize in premium snorkeling equipment, designed to
-                  elevate your underwater experience. With a focus on innovation
-                  and quality, our products help you explore the ocean with ease
-                  and style.
-                </p>
-              </div>
-
-              <div className="flex flex-col max-w-3xl mt-5">
-                <h2 className="text-3xl md:text-5xl font-semibold mb-6">
-                  Vision
-                </h2>
-                <p className="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto">
-                  We specialize in premium snorkeling equipment, designed to
-                  elevate your underwater experience. With a focus on innovation
-                  and quality, our products help you explore the ocean with ease
-                  and style.
-                </p>
-              </div>
-            </div>
-
-            <InfiniteSliderVertical />
-          </div>
-        </section>
-      </InView> */}
 
       {/* Featured Section */}
       <InView
@@ -156,7 +94,7 @@ const HomePage: FC = () => {
         transition={{ duration: 0.5, ease: "easeInOut" }}
         viewOptions={{ margin: "0px 0px -350px 0px" }}
       >
-        <section className="py-16 mt-[700px]">
+        <section className="py-16 mt-[700px] md:mt-[1000px] lg:mt-20 overflow-x-hidden">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 px-6 md:px-12 lg:px-20">
             <div className="flex flex-col items-center text-center">
               <Image
@@ -225,7 +163,7 @@ const HomePage: FC = () => {
         transition={{ duration: 0.5, ease: "easeInOut" }}
         viewOptions={{ margin: "0px 0px -350px 0px" }}
       >
-        <section className="py-16 px-6 md:px-12 lg:px-20">
+        <section className="py-16 px-6 md:px-12 lg:px-20 overflow-x-hidden">
           <h2 className="text-3xl md:text-5xl font-semibold mb-8 text-center">
             Featured Fins
           </h2>
@@ -256,7 +194,7 @@ const HomePage: FC = () => {
         }}
         transition={{ duration: 0.5, ease: "easeInOut" }}
       >
-        <section className="py-16 bg-primary text-white text-center">
+        <section className="py-16 bg-primary text-white text-center overflow-x-hidden">
           <h2 className="text-3xl md:text-5xl font-semibold mb-6">
             Ready to Dive In?
           </h2>
@@ -290,7 +228,7 @@ const HomePage: FC = () => {
         transition={{ duration: 0.5, ease: "easeInOut" }}
         viewOptions={{ margin: "350px 0px 0px 0px" }}
       >
-        <section className="container flex flex-col items-center justify-center py-16 px-6 md:px-12 lg:px-20">
+        <section className="container flex flex-col items-center justify-center py-16 px-6 md:px-12 lg:px-20 overflow-x-hidden">
           <h2 className="text-3xl md:text-5xl font-semibold mb-6">FAQ</h2>
           <Faq />
         </section>
@@ -304,7 +242,7 @@ const HomePage: FC = () => {
         }}
         transition={{ duration: 0.5, ease: "easeInOut" }}
       >
-        <section>
+        <section className="overflow-x-hidden">
           <Footer />
         </section>
       </InView>

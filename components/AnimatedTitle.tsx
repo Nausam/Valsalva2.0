@@ -47,7 +47,10 @@ const AnimatedTitle: React.FC<AnimatedTitleProps> = ({
   }, []);
 
   return (
-    <div ref={containerRef} className={clsx("animated-title", containerClass)}>
+    <div
+      ref={containerRef}
+      className={clsx("animated-title overflow-x-hidden", containerClass)}
+    >
       {title.split("<br />").map((line, index) => (
         <div
           key={index}
@@ -56,7 +59,7 @@ const AnimatedTitle: React.FC<AnimatedTitleProps> = ({
           {line.split(" ").map((word, idx) => (
             <span
               key={idx}
-              className="animated-word opacity-0"
+              className="animated-word opacity-0 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold"
               dangerouslySetInnerHTML={{ __html: word }}
             />
           ))}

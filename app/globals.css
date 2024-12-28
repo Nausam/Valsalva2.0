@@ -9,6 +9,7 @@
 
   body {
     @apply bg-white text-dark-200 min-h-screen;
+    scroll-behavior: smooth;
   }
 
   /* Remove scrollbar */
@@ -96,12 +97,21 @@
   margin: 0;
   scroll-behavior: smooth;
   -ms-overflow-style: none;
+
+
 }
 ::-webkit-scrollbar {
   display: none;
 }
 
 @layer utilities {
+
+  .overflow-fix {
+      overflow-x: hidden;
+      max-width: 100vw;
+      /* Prevent content from exceeding viewport width */
+    }
+
   /* ===== TYPOGRAPHY */
   .h1 {
     @apply text-[34px] leading-[42px] font-bold;
@@ -474,6 +484,10 @@
     transform-origin: 50% 50% -150px !important;
     will-change: opacity, transform;
   }
+
+    .main-content {
+      @apply remove-scrollbar h-full flex-1 overflow-auto bg-light-400 px-5 py-7 sm:mr-7 sm:rounded-[30px] md:mb-7 md:px-9 md:py-10 !important;
+    }
 }
 
 @layer base {
