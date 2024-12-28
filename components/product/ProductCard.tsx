@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 import React from "react";
 
@@ -28,8 +28,8 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <Link href={`/shop/${id}`} className="">
           <Image
             src={imageUrl}
-            width={300}
-            height={100}
+            width={400}
+            height={250}
             alt="product image"
             className="flex-1 rounded-sm hover:scale-105 hover:shadow-2xl transition-all duration-300"
           />

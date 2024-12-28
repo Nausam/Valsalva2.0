@@ -1,4 +1,5 @@
 import ProductCard from "@/components/product/ProductCard";
+import { InView } from "@/components/ui/in-view";
 import { getAllProducts } from "@/lib/actions/product.actions";
 import { Models } from "node-appwrite";
 import React from "react";
@@ -12,7 +13,21 @@ const AllProductsPage = async () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {products.map((product: Models.Document) => {
           return (
-            <li key={product.$id}>
+            <InView
+              key={product.$id}
+              variants={{
+                hidden: {
+                  opacity: 0,
+                  x: 100,
+                },
+                visible: {
+                  opacity: 1,
+                  x: 0,
+                },
+              }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
+              viewOptions={{ margin: "0px 0px -350px 0px" }}
+            >
               <ProductCard
                 id={product.$id}
                 key={product.name}
@@ -22,7 +37,7 @@ const AllProductsPage = async () => {
                 description={product.description}
                 category={product.categoryId.name}
               />
-            </li>
+            </InView>
           );
         })}
       </div>

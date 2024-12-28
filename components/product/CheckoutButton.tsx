@@ -21,7 +21,7 @@ import {
 import state from "@/store";
 import CustomSelect from "../shared/CustomSelect";
 import { cuts } from "@/utils/data";
-import Image from "next/image";
+import Image from "next/legacy/image";
 
 const CheckoutButton = ({ product }: { product: Fin }) => {
   const [selectedFootPocketColor, setSelectedFootPocketColor] = useState("");
@@ -126,12 +126,11 @@ const CheckoutButton = ({ product }: { product: Fin }) => {
               <CarouselItem key={cut.id} className="basis-1/3">
                 <Image
                   src={cut.imageUrl}
-                  height={70}
-                  width={70}
+                  height={130}
+                  width={100}
                   alt="blade cut image"
                   className="rounded-sm dark:invert-0 invert"
                   loading="lazy"
-                  style={{ width: "auto", height: "100%" }}
                 />
               </CarouselItem>
             ))}

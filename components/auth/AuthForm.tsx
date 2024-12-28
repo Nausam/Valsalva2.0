@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 import { createAccount, signInUser } from "@/lib/actions/user.actions";
 import OtpModal from "@/components/OTPModal";
@@ -148,7 +148,7 @@ const AuthForm = ({ type }: { type: FormType }) => {
             </p>
             <Link
               href={type === "sign-in" ? "/sign-up" : "/sign-in"}
-              className="ml-1 font-medium text-brand"
+              className="ml-1 font-bold text-slate-600"
             >
               {" "}
               {type === "sign-in" ? "Sign Up" : "Sign In"}

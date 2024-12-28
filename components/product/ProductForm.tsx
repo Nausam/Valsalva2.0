@@ -25,7 +25,7 @@ import {
   updateProduct,
   uploadProductImage,
 } from "@/lib/actions/product.actions";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { productFormSchema } from "@/lib/validations";
 import { Fin } from "@/types";
 import { productDefaultValues } from "@/constants";

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { signOutUser } from "@/lib/actions/user.actions";
 import MobileNavigation from "./MobileNavigation";
 import { navItems } from "@/constants";
@@ -18,7 +18,7 @@ export default function Navbar({ fullName, avatar, email }: Props) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   return (
-    <nav className="bg-white shadow-lg fixed w-full z-50">
+    <nav className="bg-white/40 shadow-lg fixed w-full z-50 backdrop-blur-md">
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Brand Name */}
@@ -26,9 +26,8 @@ export default function Navbar({ fullName, avatar, email }: Props) {
             <Image
               src="/assets/images/logo.png"
               alt="User Avatar"
-              width={20}
-              height={30}
-              style={{ width: "auto", height: "100%" }}
+              width={25}
+              height={40}
             />
             <span className="text-3xl font-extrabold text-black tracking-wide">
               VALSALVA

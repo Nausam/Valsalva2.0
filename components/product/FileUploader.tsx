@@ -2,7 +2,7 @@
 
 import { Dispatch, SetStateAction, useCallback } from "react";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import { convertFileToUrl } from "@/lib/utils";
 import state from "@/store";
 
