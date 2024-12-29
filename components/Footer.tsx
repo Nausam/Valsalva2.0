@@ -2,60 +2,40 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 
+import { FaTwitter, FaYoutube, FaFacebook } from "react-icons/fa";
+
+const socialLinks = [
+  { href: "https://facebook.com", icon: <FaFacebook /> },
+  { href: "https://twitter.com", icon: <FaTwitter /> },
+  { href: "https://youtube.com", icon: <FaYoutube /> },
+];
+
 const Footer = () => {
   return (
     <footer className="bg-black text-white py-12">
       <div className="container mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-3 gap-12">
         {/* Left Section: Logo and Social Icons */}
-        <div className="flex flex-col items-center lg:items-start">
+        <div className="flex flex-col items-center">
           <Image
             src="/assets/images/logo.png" // Replace with your logo path
             alt="Logo"
             width={50}
             height={50}
+            className="invert"
           />
-          <div className="flex mt-6 space-x-4">
+          <div className="flex justify-center mt-6 space-x-4 ">
             {/* Social Icons */}
-            <Link href="#" aria-label="Instagram">
-              <Image
-                src="/assets/icons/instagram.svg"
-                alt="Instagram"
-                width={24}
-                height={24}
-              />
-            </Link>
-            <Link href="#" aria-label="Facebook">
-              <Image
-                src="/assets/icons/facebook.svg"
-                alt="Facebook"
-                width={24}
-                height={24}
-              />
-            </Link>
-            <Link href="#" aria-label="YouTube">
-              <Image
-                src="/assets/icons/youtube.svg"
-                alt="YouTube"
-                width={24}
-                height={24}
-              />
-            </Link>
-            <Link href="#" aria-label="Pinterest">
-              <Image
-                src="/assets/icons/pinterest.svg"
-                alt="Pinterest"
-                width={24}
-                height={24}
-              />
-            </Link>
-            <Link href="#" aria-label="TikTok">
-              <Image
-                src="/assets/icons/tiktok.svg"
-                alt="TikTok"
-                width={24}
-                height={24}
-              />
-            </Link>
+            {socialLinks.map((link, index) => (
+              <a
+                key={index}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center text-black transition-colors duration-500 ease-in-out hover:text-white invert w-10 h-10"
+              >
+                {link.icon}
+              </a>
+            ))}
           </div>
           <div className="mt-6 text-center lg:text-left">
             <p className="text-sm font-medium">Phone Number</p>

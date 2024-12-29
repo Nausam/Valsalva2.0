@@ -39,8 +39,8 @@ const About: React.FC = () => {
   return (
     <div id="about" className="relative min-h-screen w-screen">
       {/* Static Content */}
-      <div className="relative z-10 mb-8 mt-36 flex flex-col items-center gap-5">
-        <p className="font-general text-sm uppercase md:text-[10px]">
+      <div className="relative z-10 mb-8 mt-20 flex flex-col items-center gap-5">
+        <p className="font-medium text-sm uppercase md:text-[10px]">
           Welcome to Valsalva
         </p>
         <AnimatedTitle

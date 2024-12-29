@@ -10,7 +10,7 @@ export const navItems = [
     url: "/customize",
   },
   {
-    name: "Shop",
+    name: "Products",
     icon: "/assets/icons/images.svg",
     url: "/shop",
   },

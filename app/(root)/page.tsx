@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
+
 import Image from "next/legacy/image";
 import Link from "next/link";
 import { getRandomFins } from "@/lib/actions/product.actions";
@@ -12,6 +12,8 @@ import { Faq } from "@/components/Faq";
 import Footer from "@/components/Footer";
 import { InfiniteSliderVertical } from "@/components/InfiniteSliderVertical";
 import About from "@/components/About";
+import Button from "@/components/Button";
+import { TiLocationArrow, TiLocationArrowOutline } from "react-icons/ti";
 
 const heroImages = [
   "/assets/images/hero1.jpg",
@@ -67,15 +69,18 @@ const HomePage: FC = () => {
             Discover the finest snorkeling fins and masks crafted for comfort,
             performance, and endless underwater adventures.
           </p>
-          <Button
-            size="lg"
-            className="bg-primary hover:bg-primary-dark text-white"
-          >
-            Shop Now
-          </Button>
+
+          <Link href={"/shop"}>
+            <Button
+              id="product-button"
+              title="shop now"
+              rightIcon={<TiLocationArrowOutline />}
+              containerClass="bg-blue-50 md:flex hidden items-center justify-center gap-1"
+              textSize="text-lg font-semibold"
+            />
+          </Link>
         </div>
       </section>
-
       {/* About Section */}
       <About />
 
@@ -85,10 +90,11 @@ const HomePage: FC = () => {
           variants={{
             hidden: {
               opacity: 0,
-              x: 100,
+              scale: 1.5,
             },
             visible: {
               opacity: 1,
+              scale: 1,
               x: 0,
             },
           }}
@@ -149,17 +155,17 @@ const HomePage: FC = () => {
           </section>
         </InView>
       </div>
-
       {/* Featured Fins Section */}
       <div className="overflow-x-hidden">
         <InView
           variants={{
             hidden: {
               opacity: 0,
-              scale: 1.5,
+              x: 100,
             },
             visible: {
               opacity: 1,
+              x: 0,
               scale: 1,
             },
           }}
@@ -189,7 +195,6 @@ const HomePage: FC = () => {
           </section>
         </InView>
       </div>
-
       {/* Call to Action Section */}
       <div className="overflow-x-hidden">
         <InView
@@ -199,7 +204,7 @@ const HomePage: FC = () => {
           }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
         >
-          <section className="py-16 bg-primary text-white text-center overflow-x-hidden">
+          <section className="flex flex-col items-center justify-center py-16 bg-primary text-white text-center overflow-x-hidden">
             <h2 className="text-3xl md:text-5xl font-semibold mb-6">
               Ready to Dive In?
             </h2>
@@ -207,18 +212,18 @@ const HomePage: FC = () => {
               Upgrade your snorkeling experience with the best fins, masks, and
               accessories. Shop now and start your underwater adventure today!
             </p>
-            <Link href="/shop">
+
+            <Link href={"/shop"}>
               <Button
-                size="lg"
-                className="bg-white text-primary hover:bg-gray-200"
-              >
-                Shop the Collection
-              </Button>
+                id="product-button"
+                title="Shop Now"
+                rightIcon={<TiLocationArrow />}
+                containerClass="bg-blue-50 md:flex hidden items-center justify-center gap-1"
+              />
             </Link>
           </section>
         </InView>
       </div>
-
       {/* FAQ Section */}
       <div className="overflow-x-hidden">
         <InView
@@ -241,7 +246,6 @@ const HomePage: FC = () => {
           </section>
         </InView>
       </div>
-
       {/* Footer Section */}
       <div className="overflow-x-hidden">
         <InView
