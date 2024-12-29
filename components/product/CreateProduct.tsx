@@ -9,13 +9,7 @@ export const metadata: Metadata = {
 const CreateProduct = () => {
   return (
     <>
-      <section>
-        <h3 className="container font-bold text-3xl text-center sm:text-left">
-          Create Product
-        </h3>
-      </section>
-
-      <div className="wrapper my-8">
+      <div className="my-8">
         <ProductForm type="Create" />
       </div>
     </>

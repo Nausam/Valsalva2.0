@@ -54,7 +54,7 @@ const AnimatedTitle: React.FC<AnimatedTitleProps> = ({
       {title.split("<br />").map((line, index) => (
         <div
           key={index}
-          className="flex justify-center max-w-full flex-wrap gap-2 px-10 md:gap-3"
+          className="flex justify-center max-w-6xl flex-wrap gap-2 px-10 md:gap-3"
         >
           {line.split(" ").map((word, idx) => (
             <span
