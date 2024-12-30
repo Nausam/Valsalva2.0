@@ -26,16 +26,12 @@ const MobileNavigation = ({ fullName, avatar, email }: Props) => {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
 
+  const handleLinkClick = () => {
+    setOpen(false);
+  };
+
   return (
     <header className="mobile-header overflow-x-hidden z-50">
-      {/* <Image
-        src="/assets/icons/logo-full-brand.svg"
-        alt="logo"
-        width={120}
-        height={52}
-        className="h-auto"
-      /> */}
-
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger>
           <Image
@@ -43,6 +39,7 @@ const MobileNavigation = ({ fullName, avatar, email }: Props) => {
             alt="Search"
             width={30}
             height={30}
+            className="invert"
           />
         </SheetTrigger>
         <SheetContent className="shad-sheet h-screen px-3">
@@ -66,7 +63,12 @@ const MobileNavigation = ({ fullName, avatar, email }: Props) => {
           <nav className="mobile-nav">
             <ul className="mobile-nav-list">
               {navItems.map(({ url, name, icon }) => (
-                <Link key={name} href={url} className="lg:w-full">
+                <Link
+                  key={name}
+                  href={url}
+                  className="lg:w-full"
+                  onClick={handleLinkClick}
+                >
                   <li
                     className={cn(
                       "mobile-nav-item",

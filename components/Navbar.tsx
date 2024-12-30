@@ -10,6 +10,7 @@ import Image from "next/image";
 import { signOutUser } from "@/lib/actions/user.actions";
 import { navItems } from "@/constants";
 import Button from "./Button";
+import MobileNavigation from "./MobileNavigation";
 
 interface Props {
   fullName: string;
@@ -69,7 +70,7 @@ const NavBar = ({ fullName, avatar, email }: Props) => {
   return (
     <div
       ref={navContainerRef}
-      className="fixed inset-x-0 top-4 z-50 h-16 border-none transition-all duration-700 sm:inset-x-6 bg-black bg-opacity-50 backdrop-blur-lg rounded-full"
+      className="fixed inset-x-0 top-4 z-50 h-16 border-none transition-all duration-700 sm:inset-x-6 bg-black bg-opacity-50 backdrop-blur-lg rounded-full "
     >
       <header className="absolute top-1/2 w-full -translate-y-1/2">
         <nav className="flex size-full items-center justify-between p-8">
@@ -164,6 +165,12 @@ const NavBar = ({ fullName, avatar, email }: Props) => {
                 </Link>
               )}
             </div>
+
+            <MobileNavigation
+              fullName={fullName}
+              avatar={avatar}
+              email={email}
+            />
           </div>
         </nav>
       </header>

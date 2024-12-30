@@ -110,6 +110,7 @@
       transition-timing-function: cubic-bezier(0.65, 0.05, 0.36, 1);
     }
 
+
   .nav-hover-btn {
       @apply relative ms-10 font-medium text-xs uppercase text-white after:absolute after:-bottom-0.5 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-neutral-400 after:transition-transform after:duration-300 after:ease-custom-ease hover:after:origin-bottom-left hover:after:scale-x-100 dark:after:bg-white cursor-pointer;
     }
